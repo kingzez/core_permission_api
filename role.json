@@ -1,0 +1,42 @@
+{
+  "su": {
+    "name": "超级管理员",
+    "meta": "系统内置账号",
+    "parent": "",
+    "can": [],
+    "children": {
+      "opAdmin": {
+        "name": "运营管理员",
+        "meta": "超级管理员创建",
+        "parent": "su",
+        "children": {
+          "sysAdmin": {
+            "name": "系统管理员",
+            "meta": "网站注册",
+            "parent": "opAdmin",
+            "children": {
+              "groupAdmin": {
+                "name": "组管理员",
+                "meta": "系统管理员创建",
+                "parent": "sysAdmin",
+                "children": {
+                  "seat": {
+                    "name": "坐席",
+                    "meta": "系统管理员创建",
+                    "parent": "groupAdmin",
+                    "children": ""
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "sysAdmin": {
+        "name": "系统管理员",
+        "meta": "网站注册",
+        "parent": "opAdmin"
+      }
+    }
+  }
+}
