@@ -2,12 +2,14 @@ import crypto from 'crypto'
 import Sequelize from 'sequelize'
 import db from '../lib/db'
 import v4 from 'uuid'
+import logger from '../util/logger'
 
 export interface PassportAttributes {
     id?: string,
     username: string,
     password: string,
     email: string,
+    isDelete?: boolean,
     createdAt?: number,
     updatedAt?: number,
 }
@@ -18,6 +20,9 @@ const attributes: SequelizeAttributes<PassportAttributes> = {
     id: {
         type: Sequelize.UUID,
         primaryKey: true,
+        defaultValue: function() {
+            return v4()
+        }
     },
     username: {
         type: Sequelize.STRING,
@@ -27,11 +32,26 @@ const attributes: SequelizeAttributes<PassportAttributes> = {
     password: {
         type: Sequelize.STRING,
         allowNull: false,
+        set(val) {
+            let salt = ',tom'
+            let hash = crypto.createHmac('md5', salt)
+                             .update(val)
+                             .digest('hex')
+            this.setDataValue('password', hash)
+        }
+
     },
     email: {
         type: Sequelize.STRING,
         allowNull: false,
         unique: true,
+    },
+    isDelete: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+        defaultValue: function() {
+            return false
+        }
     },
     createdAt: {
         type: Sequelize.BIGINT,
@@ -54,3 +74,31 @@ Passport.sync({
 })
 
 export default Passport
+
+export async function findById(id: string) {
+    let result = await Passport.findById(id).catch((err: Error) => {
+        logger.debug('Error:\n', err)
+        return err
+    })
+    return result
+}
+
+export async function findPassports(page: number, size: number) {
+    page = page > 0 ? page - 1 : 0
+    size = size > 0 ? size : 10
+
+    let offset = page * size
+
+    let result = await Passport.findAndCountAll({
+        offset: offset,
+        limit: size,
+        order: [
+            ['createdAt', 'DESC']
+        ]
+    }).catch((err: Error) => {
+        logger.debug('Error:\n', err)
+        return err
+    })
+
+    return result
+}

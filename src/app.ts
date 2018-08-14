@@ -6,6 +6,8 @@ import session from 'express-session'
 import cors from 'cors'
 
 import { SERVER_PORT }  from './config'
+import { getPassports, createPassport } from './routes/passport'
+import { getRoles } from './routes/role'
 
 const app: Application = express()
 
@@ -34,11 +36,11 @@ app.get('/ping', (req: Request, res: Response) => {
  * 删除用户
  * 设置用户角色
  */
-app.get('/api/passport')
-app.post('/api/passport')
+app.get('/api/passport', getPassports)
+app.post('/api/passport', createPassport)
 app.put('/api/passport')
 app.delete('/api/passport')
-app.post('/api/setrole')
+app.post('/api/setRole')
 
 /*
  * 角色管理
@@ -48,11 +50,11 @@ app.post('/api/setrole')
  * 删除角色
  * 设置角色权限
  */
-app.get('/api/role')
+app.get('/api/role', getRoles)
 app.post('/api/role')
 app.put('/api/role')
 app.delete('/api/role')
-app.post('/api/setpermission')
+app.post('/api/setPermission')
 
 /*
  * 权限管理

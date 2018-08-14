@@ -6,7 +6,7 @@ interface PermissionAttributes {
     name: string,
     code: string,
     desc?: string,
-    status: number,
+    status?: boolean,
     createdAt?: number,
     updatedAt?: number,
 }
@@ -32,11 +32,9 @@ const attributes: SequelizeAttributes<PermissionAttributes> = {
         type: Sequelize.STRING,
     },
     status: {
-        type: Sequelize.NUMBER,
+        type: Sequelize.BOOLEAN,
         allowNull: false,
-        defaultValue: function() {
-            return 1
-        }
+        defaultValue: false,
     },
     createdAt: {
         type: Sequelize.BIGINT,

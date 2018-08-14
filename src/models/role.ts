@@ -1,11 +1,14 @@
 import Sequelize from 'sequelize'
+import v4 from 'uuid'
+
 import db from '../lib/db'
+import logger from '../util/logger'
 
 interface RoleAttributes {
     id?: string,
     name: string,
-    status: number,
-    isUsed: number,
+    status?: boolean,
+    isUsed?: boolean,
     parent?: string,
     children?: string,
     createdAt?: number,
@@ -18,6 +21,9 @@ const attributes: SequelizeAttributes<RoleAttributes> = {
     id: {
         type: Sequelize.UUID,
         primaryKey: true,
+        defaultValue: function() {
+            return v4()
+        }
     },
     name: {
         type: Sequelize.STRING,
@@ -25,18 +31,14 @@ const attributes: SequelizeAttributes<RoleAttributes> = {
         unique: true,
     },
     status: {
-        type: Sequelize.STRING,
+        type: Sequelize.BOOLEAN,
         allowNull: false,
-        defaultValue: function() {
-            return 0
-        },
+        defaultValue: false,
     },
     isUsed: {
-        type: Sequelize.NUMBER,
+        type: Sequelize.BOOLEAN,
         allowNull: false,
-        defaultValue: function() {
-            return 0
-        },
+        defaultValue: false,
     },
     parent: {
         type: Sequelize.STRING,
@@ -65,3 +67,32 @@ Role.sync({
 })
 
 export default Role
+
+export async function findById(id: string) {
+    let result = await Role.findById(id).catch((err: Error) => {
+        logger.debug('Error:\n', err)
+        return err
+    })
+    return result
+}
+
+export async function findRoles(page: number, size: number) {
+    page = page > 0 ? page - 1 : 0
+    size = size > 0 ?  size : 10
+
+    let offset = page * size
+
+    let result = await Role.findAndCountAll({
+        offset: offset,
+        limit: size,
+        order: [
+            ['createdAt', 'DESC']
+        ]
+    }).catch((err: Error) => {
+        logger.debug('Error:\n', err)
+        return err
+    })
+
+    return result
+}
+
