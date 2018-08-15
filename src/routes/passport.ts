@@ -4,7 +4,7 @@ import { default as axios, AxiosResponse, AxiosError } from 'axios'
 import { findPassports } from '../models/passport'
 import logger from '../util/logger'
 import { OAUTH2_SERVER_HOST } from '../config'
-import { pickAndCheck } from '../util/util'
+import { pickAndCheck } from '../util'
 
 /**
  * GET /api/passport
