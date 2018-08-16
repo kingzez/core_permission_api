@@ -69,10 +69,7 @@ Role.sync({
 export default Role
 
 export async function findById(id: string) {
-    let result = await Role.findById(id).catch((err: Error) => {
-        logger.debug('Error:\n', err)
-        return err
-    })
+    let result = await Role.findById(id)
     return result
 }
 
@@ -88,11 +85,15 @@ export async function findRoles(page: number, size: number) {
         order: [
             ['createdAt', 'DESC']
         ]
-    }).catch((err: Error) => {
-        logger.debug('Error:\n', err)
-        return err
     })
 
+    return result
+}
+
+export async function insertRole(doc: any) {
+    let result = await Role.create(
+        doc
+    )
     return result
 }
 

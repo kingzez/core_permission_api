@@ -76,10 +76,8 @@ Passport.sync({
 export default Passport
 
 export async function findById(id: string) {
-    let result = await Passport.findById(id).catch((err: Error) => {
-        logger.debug('Error:\n', err)
-        return err
-    })
+    let result = await Passport.findById(id)
+
     return result
 }
 
@@ -95,10 +93,56 @@ export async function findPassports(page: number, size: number) {
         order: [
             ['createdAt', 'DESC']
         ]
-    }).catch((err: Error) => {
-        logger.debug('Error:\n', err)
-        return err
     })
 
     return result
 }
+
+export async function updatePassports(id: string, qs: any) {
+    let result = await Passport.update(
+        qs,
+        {
+            where: {
+                id: [id]
+            }
+        }
+    )
+
+    return result
+}
+
+export async function findPassportByUsername(username: string) {
+    let result = await Passport.findOne({
+        where: {
+            username
+        }
+    })
+
+    return result
+}
+
+export async function findPassportByEmail(email: string) {
+    let result = await Passport.findOne({
+        where: {
+            email
+        }
+    })
+
+    return result
+}
+
+export async function deletePassportById(id: string) {
+    let result = await Passport.update(
+        {
+            isDelete: true
+        },
+        {
+            where: {
+                id
+            }
+        }
+    )
+
+    return result
+}
+

@@ -6,8 +6,8 @@ import session from 'express-session'
 import cors from 'cors'
 
 import { SERVER_PORT }  from './config'
-import { getPassports, createPassport } from './routes/passport'
-import { getRoles } from './routes/role'
+import { getPassports, createPassport, updatePassport, deletePassport } from './routes/passport'
+import { getRoles, setRole } from './routes/role'
 
 const app: Application = express()
 
@@ -38,9 +38,9 @@ app.get('/ping', (req: Request, res: Response) => {
  */
 app.get('/api/passport', getPassports)
 app.post('/api/passport', createPassport)
-app.put('/api/passport')
-app.delete('/api/passport')
-app.post('/api/setRole')
+app.put('/api/passport', updatePassport)
+app.delete('/api/passport', deletePassport)
+app.post('/api/setRole', setRole)
 
 /*
  * 角色管理
