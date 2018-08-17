@@ -6,8 +6,8 @@ import session from 'express-session'
 import cors from 'cors'
 
 import { SERVER_PORT }  from './config'
-import { getPassports, createPassport, updatePassport, deletePassport } from './routes/passport'
-import { getRoles, setRole } from './routes/role'
+import { getPassports, createPassport, updatePassport, deletePassport, setRole } from './routes/passport'
+import { getRoles, createRole, updateRole } from './routes/role'
 
 const app: Application = express()
 
@@ -51,8 +51,8 @@ app.post('/api/setRole', setRole)
  * 设置角色权限
  */
 app.get('/api/role', getRoles)
-app.post('/api/role')
-app.put('/api/role')
+app.post('/api/role', createRole)
+app.put('/api/role', updateRole)
 app.delete('/api/role')
 app.post('/api/setPermission')
 

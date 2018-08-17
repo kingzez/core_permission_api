@@ -23,7 +23,7 @@ interface condition {
     options?: string[],
 }
 
-export const pickAndCheck = function (obj: any, cond: condition) {
+export const pickAndCheck = function (obj: any, cond: condition): any {
     let result
     if (cond.required) {
       for (let key of cond.required) {

@@ -2,6 +2,7 @@ import { Request, Response, RequestHandler } from 'express'
 import { default as axios, AxiosResponse, AxiosError } from 'axios'
 
 import { findPassports, updatePassports, findPassportByUsername, findPassportByEmail, deletePassportById, findById } from '../models/passport'
+import { insertPassportRole, findPassportRole } from '../models/passportRole'
 import logger from '../util/logger'
 import { OAUTH2_SERVER_HOST } from '../config'
 import { pickAndCheck, go } from '../util'
@@ -58,32 +59,21 @@ export const createPassport: RequestHandler = async (req: Request, res: Response
  */
 export const updatePassport: RequestHandler = async (req: Request, res: Response) => {
     let doc = pickAndCheck(req.body, { required: ['id'], options: ['username', 'password', 'email'] })
-    let { id, username, email } = req.body
-    let [errr, data] = await go(findById(id))
-    if (errr) {
-        logger.error('findById Error: ', errr)
-        return res.send({ status: 'not ok', msg: errr })
-    }
-    let [err, uname] = await go(findPassportByUsername(username))
-    if (err) {
-        logger.error('updatePassport findPassportByUsername Error: ', err)
-        return res.send({ status: 'not ok', msg: err })
-    }
-    if (uname !== null && username !== data.username) {
+    var [err, data] = await go(findById(doc.id))
+    var [err, uname] = await go(findPassportByUsername(doc.username))
+    if (uname !== null && doc.username !== data.username) {
         return res.send({ status: 'not ok', message: "用户名已被使用"})
     }
-    let [erro, uemail] = await go(findPassportByEmail(email))
-    if (erro) {
-        logger.error('updatePassport findPassportByEmail Error: ', erro)
-        return res.send({ status: 'not ok', msg: erro })
-    }
-    if (uemail !== null && email !== data.email) {
+
+    var [err, uemail] = await go(findPassportByEmail(doc.email))
+    if (uemail !== null && doc.email !== data.email) {
         return res.send({ status: 'not ok', message: "邮箱已被使用"})
     }
-    let [error, result] = await go(updatePassports(id, doc))
-    if (error) {
-        logger.error('updatePassport Error: ', error)
-        return res.send({ status: 'not ok', msg: error })
+
+    var [err, result] = await go(updatePassports(doc.id, doc))
+    if (err) {
+        logger.error('updatePassport Error: ', err)
+        return res.send({ status: 'not ok', msg: err })
     }
 
     res.send({ status: 'ok', msg: 'success', result: result})
@@ -101,6 +91,28 @@ export const deletePassport: RequestHandler = async (req: Request, res: Response
     let [err, result] = await go(deletePassportById(ids))
     if (err) {
         logger.error('deletePassport Error: ', err)
+        return res.send({ status: 'not ok', msg: err })
+    }
+
+    res.send({ status: 'ok', msg: 'success', result: result})
+}
+
+/**
+ * POST /api/setRole
+ * 设置用户角色
+ * @param req
+ * @param res
+ */
+export const setRole: RequestHandler = async (req: Request, res: Response) => {
+    let doc = pickAndCheck(req.body, { required: ['passportId', 'roleId'] })
+    var [err, data] = await go(findPassportRole(doc.passportId, doc.roleId))
+    if (data != null) {
+        return res.send({ status: 'not ok', message: "你当前已经拥有该角色"})
+    }
+
+    var [err, result] = await go(insertPassportRole(doc))
+    if (err) {
+        logger.error('setRole Error: ', err)
         return res.send({ status: 'not ok', msg: err })
     }
 

@@ -97,3 +97,26 @@ export async function insertRole(doc: any) {
     return result
 }
 
+export async function updateRoles(id: string, doc: any) {
+    let result = await Role.update(
+        doc,
+        {
+            where: {
+                id: [id]
+            }
+        }
+    )
+
+    return result
+}
+
+export async function findByName(name: string) {
+    let result = await Role.findOne({
+        where: {
+            name
+        }
+    })
+
+    return result
+}
+

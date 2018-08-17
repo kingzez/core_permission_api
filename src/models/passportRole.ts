@@ -1,5 +1,6 @@
 import Sequelize from 'sequelize'
 import db from '../lib/db'
+import v4 from 'uuid'
 
 interface PassportRoleAttributes {
     id?: string,
@@ -15,6 +16,9 @@ const attributes: SequelizeAttributes<PassportRoleAttributes> = {
     id: {
         type: Sequelize.UUID,
         primaryKey: true,
+        defaultValue: function() {
+            return v4()
+        }
     },
     passportId: {
         type: Sequelize.UUID,
@@ -53,3 +57,21 @@ PassportRole.sync({
 })
 
 export default PassportRole
+
+export async function findPassportRole(passportId: string, roleId: string) {
+    let result = await PassportRole.findOne({
+        where: {
+            passportId,
+            roleId
+        }
+    })
+
+    return result
+}
+
+export async function insertPassportRole(doc: any) {
+    let result = await PassportRole.create(
+        doc
+    )
+    return result
+}
