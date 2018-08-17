@@ -132,16 +132,13 @@ export async function findPassportByEmail(email: string) {
 }
 
 export async function deletePassportById(id: string) {
-    let result = await Passport.update(
-        {
-            isDelete: true
-        },
-        {
-            where: {
-                id
-            }
+    let result = await Passport.update({
+        isDelete: true
+    }, {
+        where: {
+            id
         }
-    )
+    })
 
     return result
 }

@@ -10,7 +10,8 @@
     "watch-node": "nodemon dist/server.js",
     "watch-ts": "tsc -w",
     "initdb": "node dist/util/init_db.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "./node_modules/.bin/ava dist/test --verbose",
+    "test:tap": "./node_modules/.bin/ava dist/test  --tap | tap-nyan"
   },
   "keywords": [
     "core_permission_api"
@@ -43,7 +44,9 @@
     "@types/sequelize": "^4.27.24",
     "@types/uuid": "^3.4.3",
     "@types/winston": "^2.3.9",
+    "ava": "1.0.0-beta.7",
     "nodemon": "^1.18.3",
+    "tap-nyan": "^1.1.0",
     "ts-node": "^7.0.0",
     "typescript": "^2.9.2"
   },
