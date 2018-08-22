@@ -1,8 +1,9 @@
 import { Request, Response, RequestHandler } from 'express'
 import { default as axios, AxiosResponse, AxiosError } from 'axios'
 
-import { findPassports, updatePassports, findPassportByUsername, findPassportByEmail, deletePassportById, findById } from '../models/passport'
-import { insertPassportRole, findPassportRole } from '../models/passportRole'
+import { findPassports, updatePassports, deletePassportById } from '../models/passport'
+import { insertPassportRole, findPassportRole, deletePassportRoles } from '../models/passportRole'
+import { updateRoleIsUsed } from '../models/role'
 import logger from '../util/logger'
 import { OAUTH2_SERVER_HOST } from '../config'
 import { pickAndCheck, go } from '../util'
@@ -58,21 +59,12 @@ export const createPassport: RequestHandler = async (req: Request, res: Response
  * @param res
  */
 export const updatePassport: RequestHandler = async (req: Request, res: Response) => {
-    let doc = pickAndCheck(req.body, { required: ['id'], options: ['username', 'password', 'email'] })
-    var [err, data] = await go(findById(doc.id))
-    var [err, uname] = await go(findPassportByUsername(doc.username))
-    if (uname !== null && doc.username !== data.username) {
-        return res.send({ status: 'not ok', message: "用户名已被使用"})
-    }
+    let doc = pickAndCheck(req.body, { required: ['id'], options: ['password', 'isDelete'] })
+    if (!doc) return res.send({ status: 400, msg: 'required request body is missing' })
 
-    var [err, uemail] = await go(findPassportByEmail(doc.email))
-    if (uemail !== null && doc.email !== data.email) {
-        return res.send({ status: 'not ok', message: "邮箱已被使用"})
-    }
-
-    var [err, result] = await go(updatePassports(doc.id, doc))
+    let [err, result] = await go(updatePassports(doc.id, doc))
     if (err) {
-        logger.error('updatePassport Error: ', err)
+        logger.error('updatePassport  Error: ', err)
         return res.send({ status: 'not ok', msg: err })
     }
 
@@ -81,14 +73,23 @@ export const updatePassport: RequestHandler = async (req: Request, res: Response
 
 /**
  * DELETE /api/passport
- * 批量删除用户
+ * 删除用户
  * @param req
  * @param res
  */
 export const deletePassport: RequestHandler = async (req: Request, res: Response) => {
-    let { ids } = req.body
-    ids = ids.split(",")
-    let [err, result] = await go(deletePassportById(ids))
+    let doc = pickAndCheck(req.body, { required: ['id'] })
+    if (!doc) return res.send({ status: 400, msg: 'required request body is missing' })
+
+    //删除该用户已经分配角色，将用户角色表中的数据删除
+    var [err, data] = await go(deletePassportRoles(doc.id))
+    if (err) {
+        logger.error('deletePassport deletePassportRoles Error: ', err)
+        return res.send({ status: 'not ok', msg: err })
+    }
+
+    //将用户表中的isDelete设置为ture
+    var [err, result] = await go(deletePassportById(doc.id))
     if (err) {
         logger.error('deletePassport Error: ', err)
         return res.send({ status: 'not ok', msg: err })
@@ -105,12 +106,24 @@ export const deletePassport: RequestHandler = async (req: Request, res: Response
  */
 export const setRole: RequestHandler = async (req: Request, res: Response) => {
     let doc = pickAndCheck(req.body, { required: ['passportId', 'roleId'] })
+    if (!doc) return res.send({ status: 400, msg: 'required request body is missing' })
+
     var [err, data] = await go(findPassportRole(doc.passportId, doc.roleId))
-    if (data != null) {
+    if (err) {
+        logger.error('setRole findPassportRole Error: ', err)
+        return res.send({ status: 'not ok', msg: err })
+    }
+    if (data !== null) {
         return res.send({ status: 'not ok', message: "你当前已经拥有该角色"})
     }
 
     var [err, result] = await go(insertPassportRole(doc))
+    if (err) {
+        logger.error('setRole insertPassportRole Error: ', err)
+        return res.send({ status: 'not ok', msg: err })
+    }
+
+    var [err, updateRole] = await go(updateRoleIsUsed(doc.roleId))
     if (err) {
         logger.error('setRole Error: ', err)
         return res.send({ status: 'not ok', msg: err })

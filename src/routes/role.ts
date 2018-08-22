@@ -1,8 +1,10 @@
 import { Request, Response, RequestHandler } from 'express'
 
-import { findRoles, insertRole, updateRoles, findByName } from '../models/role'
+import { findRoles, insertRole, updateRoles, findByName, deleteRoleById } from '../models/role'
+import { findRolePermission, insertRolePermission, deleteRolePermission } from '../models/rolePermission'
 import logger from '../util/logger'
 import { pickAndCheck, go } from '../util'
+import { deletePassportRole } from '../models/passportRole';
 
 /**
  * GET /api/role
@@ -33,10 +35,17 @@ export const getRoles: RequestHandler = async (req: Request, res: Response) => {
  */
 export const createRole: RequestHandler = async (req: Request, res: Response) => {
     let doc = pickAndCheck(req.body, { required: ['name'], options: ['status', 'isUsed', 'parent', 'children'] })
+    if (!doc) return res.send({ status: 400, msg: 'required request body is missing' })
+
     var [err, uname] = await go(findByName(doc.name))
+    if (err) {
+        logger.error('createRole findByName Error: ', err)
+        return res.send({ status: 'not ok', msg: err })
+    }
     if (uname !== null) {
         return res.send({ status: 'not ok', message: "角色名已被使用"})
     }
+
     var [err, result] = await go(insertRole(doc))
     if (err) {
         logger.error('createRole Error: ', err)
@@ -53,12 +62,10 @@ export const createRole: RequestHandler = async (req: Request, res: Response) =>
  * @param res
  */
 export const updateRole: RequestHandler = async (req: Request, res: Response) => {
-    let doc = pickAndCheck(req.body, { required: ['id', 'name'], options: ['status', 'isUsed', 'parent', 'children'] })
-    var [err, uname] = await go(findByName(doc.name))
-    if (uname !== null) {
-        return res.send({ status: 'not ok', message: "角色名已被使用"})
-    }
-    var [err, result] = await go(updateRoles(doc.id, doc))
+    let doc = pickAndCheck(req.body, { required: ['id'], options: ['status', 'isUsed', 'parent', 'children'] })
+    if (!doc) return res.send({ status: 400, msg: 'required request body is missing' })
+
+    let [err, result] = await go(updateRoles(doc.id, doc))
     if (err) {
         logger.error('updateRole Error: ', err)
         return res.send({ status: 'not ok', msg: err })
@@ -67,4 +74,60 @@ export const updateRole: RequestHandler = async (req: Request, res: Response) =>
     res.send({ status: 'ok', msg: 'success', result: result})
 }
 
+/**
+ * POST /api/setPermission
+ * 设置角色权限
+ * @param req
+ * @param res
+ */
+export const setPermission: RequestHandler = async (req: Request, res: Response) => {
+    let doc = pickAndCheck(req.body, { required: ['roleId', 'permissionId'] })
+    if (!doc) return res.send({ status: 400, msg: 'required request body is missing' })
 
+    var [err, data] = await go(findRolePermission(doc.roleId, doc.permissionId))
+    if (data !== null) {
+        return res.send({ status: 'not ok', message: "你当前已经拥有该权限"})
+    }
+
+    var [err, result] = await go(insertRolePermission(doc))
+    if (err) {
+        logger.error('setPermission Error: ', err)
+        return res.send({ status: 'not ok', msg: err })
+    }
+
+    res.send({ status: 'ok', msg: 'success', result: result})
+}
+
+
+/**
+ * DELETE /api/role
+ * 删除角色
+ * @param req
+ * @param res
+ */
+export const deleteRole: RequestHandler = async (req: Request, res: Response) => {
+    let doc = pickAndCheck(req.body, { required: ['roleId'] })
+    if (!doc) return res.send({ status: 400, msg: 'required request body is missing' })
+
+    //该角色如果已经被用户使用，要先将用户角色表的数据删除
+    var [err, rdata] = await go(deletePassportRole(doc.roleId))
+    if (err) {
+        logger.error('deleteRole deletePassportRole Error: ', err)
+        return res.send({ status: 'not ok', msg: err })
+    }
+
+    // 该角色如果已经分配权限，要先将角色权限表中的数据删除
+    var [err, data] = await go(deleteRolePermission(doc.roleId))
+    if (err) {
+        logger.error('deleteRole deleteRolePermission Error: ', err)
+        return res.send({ status: 'not ok', msg: err })
+    }
+
+    var [err, result] = await go(deleteRoleById(doc.roleId))
+    if (err) {
+        logger.error('deleteRole Error: ', err)
+        return res.send({ status: 'not ok', msg: err })
+    }
+
+    res.send({ status: 'ok', msg: 'success', result: result})
+}

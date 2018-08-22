@@ -1,5 +1,6 @@
 import Sequelize from 'sequelize'
 import db from '../lib/db'
+import v4 from "uuid"
 
 interface RolePermissionAttributes {
     id?: string,
@@ -15,6 +16,9 @@ const attributes: SequelizeAttributes<RolePermissionAttributes> = {
     id: {
         type: Sequelize.UUID,
         primaryKey: true,
+        defaultValue: function() {
+            return v4()
+        }
     },
     roleId: {
         type: Sequelize.UUID,
@@ -53,3 +57,61 @@ RolePermission.sync({
 })
 
 export default RolePermission
+
+export async function findRolePermission(roleId: string, permissionId: string) {
+    let result = await RolePermission.findOne({
+        where: {
+            roleId,
+            permissionId
+        }
+    })
+
+    return result
+}
+
+export async function insertRolePermission(doc: any) {
+    let result = await RolePermission.create(doc)
+
+    return result
+}
+
+export async function findRolePermissionById(roleId: string) {
+    let result = await RolePermission.findOne({
+        where: {
+            roleId
+        }
+    })
+
+    return result
+}
+
+export async function deleteRolePermission(roleId: string) {
+    let result = await RolePermission.destroy({
+        where: {
+            id: [roleId]
+        }
+    })
+
+    return result
+}
+
+export async function findRolePermissionByPermissionId(permissionId: string) {
+    let result = await RolePermission.findOne({
+        where: {
+            permissionId
+        }
+    })
+
+    return result
+}
+
+export async function deleteRolePermissionByPermissionId(permissionId: string) {
+    let result = await RolePermission.destroy({
+        where: {
+            permissionId: [permissionId]
+        }
+    })
+
+    return result
+}
+

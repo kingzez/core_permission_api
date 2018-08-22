@@ -91,9 +91,8 @@ export async function findRoles(page: number, size: number) {
 }
 
 export async function insertRole(doc: any) {
-    let result = await Role.create(
-        doc
-    )
+    let result = await Role.create(doc)
+
     return result
 }
 
@@ -114,6 +113,38 @@ export async function findByName(name: string) {
     let result = await Role.findOne({
         where: {
             name
+        }
+    })
+
+    return result
+}
+
+export async function findByRoleId(id: string) {
+    let result = await Role.findOne({
+        where: {
+            id
+        }
+    })
+
+    return result
+}
+
+export async function deleteRoleById(id: string) {
+    let result = await Role.destroy({
+        where: {
+            id: [id]
+        }
+    })
+
+    return result
+}
+
+export async function updateRoleIsUsed(id: string) {
+    let result = await Role.update({
+        isUsed: true
+    }, {
+        where: {
+            id
         }
     })
 

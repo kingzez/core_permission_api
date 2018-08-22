@@ -70,8 +70,27 @@ export async function findPassportRole(passportId: string, roleId: string) {
 }
 
 export async function insertPassportRole(doc: any) {
-    let result = await PassportRole.create(
-        doc
-    )
+    let result = await PassportRole.create(doc)
+
+    return result
+}
+
+export async function deletePassportRoles(passportId: string) {
+    let result = await PassportRole.destroy({
+        where: {
+            passportId: [passportId]
+        }
+    })
+
+    return result
+}
+
+export async function deletePassportRole(roleId: string) {
+    let result = await PassportRole.destroy({
+        where: {
+            roleId: [roleId]
+        }
+    })
+
     return result
 }

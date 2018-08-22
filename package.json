@@ -2,14 +2,14 @@
   "name": "core_permission_api",
   "version": "1.0.0",
   "description": "core_permission_api",
-  "main": "dist/server.js",
+  "main": "dist/src/server.js",
   "scripts": {
-    "start": "node dist/server.js",
+    "start": "node dist/src/server.js",
     "dev": "DEBUG=oauth2orize npm run watch-node",
     "build": "tsc && npm run copy-static-assets",
-    "watch-node": "nodemon dist/server.js",
+    "watch-node": "nodemon dist/src/server.js",
     "watch-ts": "tsc -w",
-    "initdb": "node dist/util/init_db.js",
+    "initdb": "node dist/src/util/init_db.js",
     "test": "./node_modules/.bin/ava dist/test --verbose",
     "test:tap": "./node_modules/.bin/ava dist/test  --tap | tap-nyan"
   },
