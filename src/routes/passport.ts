@@ -10,7 +10,7 @@ import { pickAndCheck, go } from '../util'
 
 /**
  * GET /api/passport
- * 获取用户列表
+ * 获取用户角色列表
  * @param page: number
  * @param size: number
  */
@@ -59,7 +59,7 @@ export const createPassport: RequestHandler = async (req: Request, res: Response
  * @param res
  */
 export const updatePassport: RequestHandler = async (req: Request, res: Response) => {
-    let doc = pickAndCheck(req.body, { required: ['id'], options: ['password', 'isDelete'] })
+    let doc = pickAndCheck(req.body, { required: ['id'], options: ['password'] })
     if (!doc) return res.send({ status: 400, msg: 'required request body is missing' })
 
     let [err, result] = await go(updatePassports(doc.id, doc))
@@ -114,7 +114,7 @@ export const setRole: RequestHandler = async (req: Request, res: Response) => {
         return res.send({ status: 'not ok', msg: err })
     }
     if (data !== null) {
-        return res.send({ status: 'not ok', message: "你当前已经拥有该角色"})
+        return res.send({ status: 'not ok', msg: "你当前已经拥有该角色"})
     }
 
     var [err, result] = await go(insertPassportRole(doc))

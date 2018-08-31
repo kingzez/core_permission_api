@@ -7,7 +7,7 @@ import cors from 'cors'
 
 import { SERVER_PORT }  from './config'
 import { getPassports, createPassport, updatePassport, deletePassport, setRole } from './routes/passport'
-import { getRoles, createRole, updateRole, setPermission, deleteRole } from './routes/role'
+import { getRoles, getRolePermissions, createRole, updateRole, setPermission, deleteRole } from './routes/role'
 import { createPermission, updatePermission, getPermissions, deletePermission } from './routes/permission'
 
 const app: Application = express()
@@ -50,12 +50,14 @@ app.post('/api/setRole', setRole)
  * 编辑角色
  * 删除角色
  * 设置角色权限
+ * 角色权限列表
  */
 app.get('/api/role', getRoles)
 app.post('/api/role', createRole)
 app.put('/api/role', updateRole)
 app.delete('/api/role', deleteRole)
 app.post('/api/setPermission', setPermission)
+app.get('/api/rolePermission', getRolePermissions)
 
 /*
  * 权限管理
@@ -68,6 +70,7 @@ app.get('/api/permission', getPermissions)
 app.post('/api/permission', createPermission)
 app.put('/api/permission', updatePermission)
 app.delete('/api/permission', deletePermission)
+
 
 
 export default app

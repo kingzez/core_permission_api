@@ -21,7 +21,7 @@ export const createPermission: RequestHandler = async (req: Request, res: Respon
         return res.send({ status: 'not ok', msg: err })
     }
     if (data !== null) {
-        return res.send({ status: 'not ok', message: "权限的code编号已被使用"})
+        return res.send({ status: 'not ok', msg: "权限的code编号已被使用"})
     }
 
     var [err, descData] = await go(findByDesc(doc.desc))
@@ -30,7 +30,7 @@ export const createPermission: RequestHandler = async (req: Request, res: Respon
         return res.send({ status: 'not ok', msg: err })
     }
     if (descData !== null) {
-        return res.send({ status: 'not ok', message: "权限的desc权限已被使用"})
+        return res.send({ status: 'not ok', msg: "权限的desc权限已被使用"})
     }
 
     var [err, result] = await go(insertPermission(doc))
@@ -64,7 +64,7 @@ export const updatePermission: RequestHandler = async (req: Request, res: Respon
         return res.send({ status: 'not ok', msg: err })
     }
     if (descData !== null && doc.desc !== idData.desc) {
-        return res.send({ status: 'not ok', message: "权限的desc权限已被使用"})
+        return res.send({ status: 'not ok', msg: "权限的desc权限已被使用"})
     }
 
     var [err, result] = await go(updatePermissions(doc.id, doc))

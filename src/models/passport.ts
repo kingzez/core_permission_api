@@ -2,7 +2,7 @@ import crypto from 'crypto'
 import Sequelize from 'sequelize'
 import db from '../lib/db'
 import v4 from 'uuid'
-import logger from '../util/logger'
+import Role from './role';
 
 export interface PassportAttributes {
     id?: string,
@@ -86,14 +86,22 @@ export async function findPassports(page: number, size: number) {
     size = size > 0 ? size : 10
 
     let offset = page * size
+    let count = await Passport.count({
+        where: { isDelete: false }
+    })
 
     let result = await Passport.findAndCountAll({
         offset: offset,
         limit: size,
+        where: { isDelete: false },
         order: [
             ['createdAt', 'DESC']
-        ]
+        ],
+        include: [{ model: Role }]
+
     })
+
+    result.count = count
 
     return result
 }

@@ -1,6 +1,8 @@
 import Sequelize from 'sequelize'
 import db from '../lib/db'
 import v4 from "uuid"
+import Permission from './permission'
+import Role from './role'
 
 interface RolePermissionAttributes {
     id?: string,
@@ -22,6 +24,7 @@ const attributes: SequelizeAttributes<RolePermissionAttributes> = {
     },
     roleId: {
         type: Sequelize.UUID,
+        field: 'role_id',
         references: {
             model: 'Role',
             key: 'id',
@@ -30,6 +33,7 @@ const attributes: SequelizeAttributes<RolePermissionAttributes> = {
     },
     permissionId: {
         type: Sequelize.UUID,
+        field: 'permission_id',
         references: {
             model: 'Permission',
             key: 'id',
@@ -51,6 +55,9 @@ const attributes: SequelizeAttributes<RolePermissionAttributes> = {
 }
 
 const RolePermission = db.define<RolePermissionInstance, RolePermissionAttributes>('RolePermissions', attributes, { tableName: 'RolePermission' })
+
+Role.belongsToMany(Permission, { 'through': RolePermission, foreignKey: 'roleId' })
+Permission.belongsToMany(Role, { 'through': RolePermission, foreignKey: 'permissionId' })
 
 RolePermission.sync({
     force: false
@@ -88,7 +95,7 @@ export async function findRolePermissionById(roleId: string) {
 export async function deleteRolePermission(roleId: string) {
     let result = await RolePermission.destroy({
         where: {
-            id: [roleId]
+            roleId: [roleId]
         }
     })
 

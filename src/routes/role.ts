@@ -1,6 +1,6 @@
 import { Request, Response, RequestHandler } from 'express'
 
-import { findRoles, insertRole, updateRoles, findByName, deleteRoleById } from '../models/role'
+import { findRoles, findRolePermissions, insertRole, updateRoles, findByName, deleteRoleById } from '../models/role'
 import { findRolePermission, insertRolePermission, deleteRolePermission } from '../models/rolePermission'
 import logger from '../util/logger'
 import { pickAndCheck, go } from '../util'
@@ -28,6 +28,27 @@ export const getRoles: RequestHandler = async (req: Request, res: Response) => {
 }
 
 /**
+ * GET /api/rolePermission
+ * 获取角色权限列表
+ * @param req
+ * @param res
+ */
+export const getRolePermissions: RequestHandler = async (req: Request, res: Response) => {
+    // TODO need optimize
+    // let { page, size } = req.query
+    const page = parseInt(req.query.page)
+    const size = parseInt(req.query.size)
+
+    let [err, result] = await go(findRolePermissions(page, size))
+    if (err) {
+        logger.error('findRoles Error: ', err)
+        return res.send({ status: 'not ok', msg: err })
+    }
+
+    res.send({ status: 'ok', msg: 'success', result: result })
+}
+
+/**
  * POST /api/role
  * 添加角色
  * @param req
@@ -43,7 +64,7 @@ export const createRole: RequestHandler = async (req: Request, res: Response) =>
         return res.send({ status: 'not ok', msg: err })
     }
     if (uname !== null) {
-        return res.send({ status: 'not ok', message: "角色名已被使用"})
+        return res.send({ status: 'not ok', msg: "角色名已被使用"})
     }
 
     var [err, result] = await go(insertRole(doc))
@@ -86,7 +107,7 @@ export const setPermission: RequestHandler = async (req: Request, res: Response)
 
     var [err, data] = await go(findRolePermission(doc.roleId, doc.permissionId))
     if (data !== null) {
-        return res.send({ status: 'not ok', message: "你当前已经拥有该权限"})
+        return res.send({ status: 'not ok', msg: "你当前已经拥有该权限"})
     }
 
     var [err, result] = await go(insertRolePermission(doc))

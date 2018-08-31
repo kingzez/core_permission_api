@@ -3,6 +3,7 @@ import v4 from 'uuid'
 
 import db from '../lib/db'
 import logger from '../util/logger'
+import Permission from './permission';
 
 interface RoleAttributes {
     id?: string,
@@ -90,6 +91,25 @@ export async function findRoles(page: number, size: number) {
     return result
 }
 
+export async function findRolePermissions(page: number, size: number) {
+    page = page > 0 ? page - 1 : 0
+    size = size > 0 ?  size : 10
+
+    let offset = page * size
+    let count = await Role.count()
+
+    let result = await Role.findAndCountAll({
+        offset: offset,
+        limit: size,
+        order: [
+            ['createdAt', 'DESC']
+        ],
+        include: [{ model: Permission }]
+    })
+    result.count = count
+
+    return result
+}
 export async function insertRole(doc: any) {
     let result = await Role.create(doc)
 

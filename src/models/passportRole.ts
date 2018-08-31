@@ -1,6 +1,8 @@
 import Sequelize from 'sequelize'
 import db from '../lib/db'
 import v4 from 'uuid'
+import Role from './role'
+import Passport from './passport'
 
 interface PassportRoleAttributes {
     id?: string,
@@ -22,6 +24,8 @@ const attributes: SequelizeAttributes<PassportRoleAttributes> = {
     },
     passportId: {
         type: Sequelize.UUID,
+        field: 'user_id',
+        primaryKey: true,
         references: {
             model: 'Passport',
             key: 'id',
@@ -30,6 +34,8 @@ const attributes: SequelizeAttributes<PassportRoleAttributes> = {
     },
     roleId: {
         type: Sequelize.UUID,
+        field: 'role_id',
+        primaryKey: true,
         references: {
             model: 'Role',
             key: 'id',
@@ -51,6 +57,10 @@ const attributes: SequelizeAttributes<PassportRoleAttributes> = {
 }
 
 const PassportRole = db.define<PassportRoleInstance, PassportRoleAttributes>('PassportRoles', attributes, { tableName: 'PassportRole' })
+
+
+Role.belongsToMany(Passport, { 'through': PassportRole, foreignKey: 'roleId' })
+Passport.belongsToMany(Role, { 'through': PassportRole, foreignKey: 'passportId' })
 
 PassportRole.sync({
     force: false

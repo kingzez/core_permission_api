@@ -1,10 +1,10 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : localhost
+ Source Server         : sso
  Source Server Type    : PostgreSQL
  Source Server Version : 100004
- Source Host           : 127.0.0.1:5432
+ Source Host           : localhost:5432
  Source Catalog        : sso-server
  Source Schema         : public
 
@@ -12,7 +12,7 @@
  Target Server Version : 100004
  File Encoding         : 65001
 
- Date: 14/08/2018 10:25:07
+ Date: 31/08/2018 18:45:32
 */
 
 
@@ -64,34 +64,56 @@ ALTER TABLE "public"."Passport" OWNER TO "w";
 -- Records of Passport
 -- ----------------------------
 BEGIN;
-INSERT INTO "public"."Passport" VALUES ('43cce95c-f2b0-437e-9fdb-651946695143', 'admin', 'admin', 'admin@xiaoyun.com', 1533204799899, 1533204799983, 'f');
-INSERT INTO "public"."Passport" VALUES ('db793c02-a0a8-4b3b-8d9c-543e68547cce', 'wangzezhi', '15dab537d36aaeed42454cc4c182f187', 'wangzezhi@xiaoyun.com', 1534156519416, 1534156519418, 'f');
-INSERT INTO "public"."Passport" VALUES ('dcce7549-eb9b-4c86-9740-57faae877626', 'kingze', '639a10a7bdd5ccb749ec2727b7ac87e4', 'kingzez@xiaoyun.com', 1534157514895, 1534157514896, 'f');
-INSERT INTO "public"."Passport" VALUES ('2687d354-1a3f-4d72-a4b1-bfa476eb21a4', 'kingze', '639a10a7bdd5ccb749ec2727b7ac87e4', 'kingzez@xiaoyun.com', 1534185809179, 1534185809180, 'f');
-INSERT INTO "public"."Passport" VALUES ('461824e1-7142-45ab-b65d-df7ebaf697e9', 'kingze', '639a10a7bdd5ccb749ec2727b7ac87e4', 'kingzez@xiaoyun.com', 1534185810546, 1534185810546, 'f');
-INSERT INTO "public"."Passport" VALUES ('96c71265-efd7-42e9-817b-0b940f98acd8', 'kingze', '639a10a7bdd5ccb749ec2727b7ac87e4', 'kingzez@xiaoyun.com', 1534185811200, 1534185811201, 'f');
-INSERT INTO "public"."Passport" VALUES ('54ad956d-1a28-4c64-8dcf-8e3130ca80f0', 'kingze', '639a10a7bdd5ccb749ec2727b7ac87e4', 'kingzez@xiaoyun.com', 1534185811885, 1534185811885, 'f');
-INSERT INTO "public"."Passport" VALUES ('d09a27ac-3b15-4e68-b375-976e5e7d8a7f', 'kingze', '639a10a7bdd5ccb749ec2727b7ac87e4', 'kingzez@xiaoyun.com', 1534185950860, 1534185950860, 'f');
-INSERT INTO "public"."Passport" VALUES ('93fad6cc-9519-4878-a487-eb232e1c19a0', 'kingze', '639a10a7bdd5ccb749ec2727b7ac87e4', 'kingzez@xiaoyun.com', 1534185951642, 1534185951642, 'f');
-INSERT INTO "public"."Passport" VALUES ('7f62da27-ea8f-45f0-9b9c-9bbffad64ab0', 'kingze', '639a10a7bdd5ccb749ec2727b7ac87e4', 'kingzez@xiaoyun.com', 1534185952805, 1534185952805, 'f');
-INSERT INTO "public"."Passport" VALUES ('cd290cad-2c4e-4f3e-ab09-c568ad36d5d1', 'kingze', '639a10a7bdd5ccb749ec2727b7ac87e4', 'kingzez@xiaoyun.com', 1534185953385, 1534185953385, 'f');
-INSERT INTO "public"."Passport" VALUES ('feca8bdb-e30c-4c6a-be5c-e1c2eb62a48b', 'kingze', '639a10a7bdd5ccb749ec2727b7ac87e4', 'kingzez@xiaoyun.com', 1534185953848, 1534185953848, 'f');
-INSERT INTO "public"."Passport" VALUES ('36381eed-0c94-4609-b8c8-951a24365429', 'kingze', '639a10a7bdd5ccb749ec2727b7ac87e4', 'kingzez@xiaoyun.com', 1534185954291, 1534185954291, 'f');
-INSERT INTO "public"."Passport" VALUES ('c18a7c91-5ff6-4d3b-97f4-f5b12ced8681', 'kingze', '639a10a7bdd5ccb749ec2727b7ac87e4', 'kingzez@xiaoyun.com', 1534185954700, 1534185954700, 'f');
-INSERT INTO "public"."Passport" VALUES ('b968d13e-c481-4117-a392-650087ef0a0c', 'kingze', '639a10a7bdd5ccb749ec2727b7ac87e4', 'kingzez@xiaoyun.com', 1534185955092, 1534185955092, 'f');
-INSERT INTO "public"."Passport" VALUES ('f104dc9c-82e4-4568-9a81-8ecd480978e6', 'kingze', '639a10a7bdd5ccb749ec2727b7ac87e4', 'kingzez@xiaoyun.com', 1534185955472, 1534185955472, 'f');
-INSERT INTO "public"."Passport" VALUES ('c20f31f4-bf33-4000-a012-8bd791de1e4f', 'kingze', '639a10a7bdd5ccb749ec2727b7ac87e4', 'kingzez@xiaoyun.com', 1534185955882, 1534185955882, 'f');
-INSERT INTO "public"."Passport" VALUES ('932c2932-a561-4cb8-96cb-fa556b2d2946', 'kingze', '639a10a7bdd5ccb749ec2727b7ac87e4', 'kingzez@xiaoyun.com', 1534185956190, 1534185956190, 'f');
-INSERT INTO "public"."Passport" VALUES ('e88362b4-3945-4502-ba9a-810750e3a032', 'kingze', '639a10a7bdd5ccb749ec2727b7ac87e4', 'kingzez@xiaoyun.com', 1534185956554, 1534185956554, 'f');
-INSERT INTO "public"."Passport" VALUES ('0010f178-b8ab-412c-9d16-512a2e0c516a', 'kingze', '639a10a7bdd5ccb749ec2727b7ac87e4', 'kingzez@xiaoyun.com', 1534185956955, 1534185956955, 'f');
-INSERT INTO "public"."Passport" VALUES ('49981102-2245-4ef1-81a2-ba497ba21848', 'kingze', '639a10a7bdd5ccb749ec2727b7ac87e4', 'kingzez@xiaoyun.com', 1534185967973, 1534185967975, 'f');
-INSERT INTO "public"."Passport" VALUES ('d5e183bc-2ec4-461f-ab68-bdf296873f76', 'kingze', '639a10a7bdd5ccb749ec2727b7ac87e4', 'kingzez@xiaoyun.com', 1534185970454, 1534185970454, 'f');
-INSERT INTO "public"."Passport" VALUES ('a46a5de6-c442-45aa-bdff-1208fdd96507', 'kingze', '639a10a7bdd5ccb749ec2727b7ac87e4', 'kingzez@xiaoyun.com', 1534185970738, 1534185970738, 'f');
-INSERT INTO "public"."Passport" VALUES ('b314d89a-5f42-4a42-9f7a-8a32459da451', 'kingze', '639a10a7bdd5ccb749ec2727b7ac87e4', 'kingzez@xiaoyun.com', 1534185970951, 1534185970952, 'f');
-INSERT INTO "public"."Passport" VALUES ('a3897fcc-5f32-4782-90af-de2433036a6f', 'kingze', '639a10a7bdd5ccb749ec2727b7ac87e4', 'kingzez@xiaoyun.com', 1534185971152, 1534185971152, 'f');
-INSERT INTO "public"."Passport" VALUES ('13690e6c-9b20-49a1-9862-22c751fc785f', 'kingze', '639a10a7bdd5ccb749ec2727b7ac87e4', 'kingzez@xiaoyun.com', 1534185971354, 1534185971354, 'f');
-INSERT INTO "public"."Passport" VALUES ('4beaac87-79be-40c4-9429-91d5d487ec72', 'kingze', '639a10a7bdd5ccb749ec2727b7ac87e4', 'kingzez@xiaoyun.com', 1534185971545, 1534185971545, 'f');
-INSERT INTO "public"."Passport" VALUES ('de8cd97e-c604-4219-9ddf-d7b4a3f8827a', 'kingze', '639a10a7bdd5ccb749ec2727b7ac87e4', 'kingzez@xiaoyun.com', 1534185971721, 1534185971722, 'f');
+INSERT INTO "public"."Passport" VALUES ('bd712e62-a676-43a7-8927-7475b3726856', 'cao', '0ea12995c8bced881c5f177a101c2c6d', '233dd1@qq.com', 1535702433078, 1535702433078, 'f');
+INSERT INTO "public"."Passport" VALUES ('3c6d15a5-3d66-4eea-aa0b-0014616e01ed', 'zhao', '0ea12995c8bced881c5f177a101c2c6d', '2d1111@qq.com', 1535702462749, 1535702462749, 'f');
+INSERT INTO "public"."Passport" VALUES ('1fecc4e7-7360-497e-b73e-cde13634fbaf', 'tian', '0ea12995c8bced881c5f177a101c2c6d', '123233@qq.com', 1535702475663, 1535702475663, 'f');
+INSERT INTO "public"."Passport" VALUES ('e3345ad2-9fd9-4878-8f3b-356d8f99190c', 'zhang', 'd4c39dfda37e4a2183e58dc8d07cf8f6', '2331@qq.com', 1535701954218, 1535702024629, 't');
+INSERT INTO "public"."Passport" VALUES ('e7154650-c3fd-4c03-a152-77964c025f30', 'weixin', '0ea12995c8bced881c5f177a101c2c6d', '233d1@qq.com', 1535701984886, 1535701984886, 't');
+INSERT INTO "public"."Passport" VALUES ('8d8e1938-49e2-49b0-b752-22441d4b420b', 'lisi', '0ea12995c8bced881c5f177a101c2c6d', '12322233@qq.com', 1535702712250, 1535702712250, 'f');
+INSERT INTO "public"."Passport" VALUES ('2e533a58-c229-4094-ad1a-9d9a460da1aa', 'sun', '0ea12995c8bced881c5f177a101c2c6d', '123222233@qq.com', 1535702722439, 1535704697740, 't');
+INSERT INTO "public"."Passport" VALUES ('337db44f-cee0-4d6f-9f9b-c69939f17810', 'sun1', '0ea12995c8bced881c5f177a101c2c6d', '12e233@qq.com', 1535704842675, 1535704842675, 'f');
+INSERT INTO "public"."Passport" VALUES ('36a20bfb-4141-41bf-8ca6-eef8b818cb7e', 'sun2', '0ea12995c8bced881c5f177a101c2c6d', '12e22233@qq.com', 1535704849059, 1535704849060, 'f');
+INSERT INTO "public"."Passport" VALUES ('134283a8-47df-4ad1-8a26-d30ed198fc44', 'sun4', '0ea12995c8bced881c5f177a101c2c6d', '1211122233@qq.com', 1535704857430, 1535704857430, 'f');
+INSERT INTO "public"."Passport" VALUES ('585ba45c-32ca-443c-ba47-53b52ad27f2b', 'sun5', '0ea12995c8bced881c5f177a101c2c6d', '1222211122233@qq.com', 1535704865095, 1535704865096, 'f');
+INSERT INTO "public"."Passport" VALUES ('0d8885df-a638-404f-86d2-103f3e5c4c90', 'sun6', '0ea12995c8bced881c5f177a101c2c6d', '122222211122233@qq.com', 1535704871868, 1535704871868, 'f');
+INSERT INTO "public"."Passport" VALUES ('f2fb4f0c-b8f5-4243-903d-864ba7f9a476', 'sun7', '0ea12995c8bced881c5f177a101c2c6d', '12223211122233@qq.com', 1535704892359, 1535704892359, 'f');
+INSERT INTO "public"."Passport" VALUES ('dc1298bc-9a74-49de-b6c0-266ea7fd7e71', 'sun8', '0ea12995c8bced881c5f177a101c2c6d', '133211122233@qq.com', 1535704900517, 1535704900517, 'f');
+INSERT INTO "public"."Passport" VALUES ('70cdcc4d-dc1a-46e5-be70-ad4ed021f1c4', 'sun9', '0ea12995c8bced881c5f177a101c2c6d', '1332131122233@qq.com', 1535704906514, 1535704906514, 'f');
+INSERT INTO "public"."Passport" VALUES ('4b24efa5-6247-404b-9d1b-7756b8517296', 'sun10', '0ea12995c8bced881c5f177a101c2c6d', '13322231122233@qq.com', 1535704914441, 1535704914442, 'f');
+INSERT INTO "public"."Passport" VALUES ('4ef7aa91-5cbf-4259-ab3d-254e8299559f', 'sun12', '0ea12995c8bced881c5f177a101c2c6d', '1333231122233@qq.com', 1535705027333, 1535705027333, 'f');
+INSERT INTO "public"."Passport" VALUES ('a2c7bb66-2dd4-461c-9516-151a193ff320', 'sun14', '0ea12995c8bced881c5f177a101c2c6d', '1232231122233@qq.com', 1535705043539, 1535705043539, 'f');
+INSERT INTO "public"."Passport" VALUES ('8b048aa0-4c4e-44a2-bb58-9588df1128e0', 'sun15', '0ea12995c8bced881c5f177a101c2c6d', '111132231122233@qq.com', 1535705053794, 1535705053795, 'f');
+INSERT INTO "public"."Passport" VALUES ('12b42ea6-27fb-43b5-9625-ccc03898ae97', 'sun13', '0ea12995c8bced881c5f177a101c2c6d', '1233231122233@qq.com', 1535705033771, 1535706319502, 'f');
+INSERT INTO "public"."Passport" VALUES ('fe519f5a-340e-4497-8a99-4ee7de51a6fb', 'sun11', '8bc9627934aecb9b3894e06b4ffea265', '133231122233@qq.com', 1535705020392, 1535710764564, 'f');
+INSERT INTO "public"."Passport" VALUES ('64c8b7ff-a88c-4853-b93a-5c4a75698f11', 'li', '0ea12995c8bced881c5f177a101c2c6d', '231111@qq.com', 1535702445256, 1535710786151, 't');
+INSERT INTO "public"."Passport" VALUES ('bdcae590-efe2-4bdb-a8f8-e2440af89cb4', 'sun16', '557323e45a975672c1aed31ba493e8ad', '111132122233@qq.com', 1535705061137, 1535711034189, 'f');
+COMMIT;
+
+-- ----------------------------
+-- Table structure for PassportRole
+-- ----------------------------
+DROP TABLE IF EXISTS "public"."PassportRole";
+CREATE TABLE "public"."PassportRole" (
+  "id" uuid NOT NULL,
+  "user_id" uuid NOT NULL,
+  "role_id" uuid NOT NULL,
+  "createdAt" int8,
+  "updatedAt" int8
+)
+;
+ALTER TABLE "public"."PassportRole" OWNER TO "w";
+
+-- ----------------------------
+-- Records of PassportRole
+-- ----------------------------
+BEGIN;
+INSERT INTO "public"."PassportRole" VALUES ('bdef5bda-e4cc-41d5-96b8-081602699c46', 'bd712e62-a676-43a7-8927-7475b3726856', 'bdef5bda-e4cc-41d5-96b8-081602699c46', NULL, NULL);
+INSERT INTO "public"."PassportRole" VALUES ('0ba57916-ba30-47dd-b11b-cc5974b68ecc', '70cdcc4d-dc1a-46e5-be70-ad4ed021f1c4', 'bdef5bda-e4cc-41d5-96b8-081602699c46', 1535704967152, 1535704967153);
+INSERT INTO "public"."PassportRole" VALUES ('4b160713-a37d-4b4c-ae51-df1e691f0a57', 'a2c7bb66-2dd4-461c-9516-151a193ff320', 'bdef5bda-e4cc-41d5-96b8-081602699c46', 1535706325941, 1535706325942);
+INSERT INTO "public"."PassportRole" VALUES ('b1431660-e1d4-47e0-99a2-c22d8fa39ae2', '4ef7aa91-5cbf-4259-ab3d-254e8299559f', 'bdef5bda-e4cc-41d5-96b8-081602699c46', 1535710771517, 1535710771519);
+INSERT INTO "public"."PassportRole" VALUES ('12ee89d3-fc9d-4139-8e38-953c122fc410', 'fe519f5a-340e-4497-8a99-4ee7de51a6fb', 'bdef5bda-e4cc-41d5-96b8-081602699c46', 1535710775810, 1535710775810);
+INSERT INTO "public"."PassportRole" VALUES ('5fc71435-3067-4d17-b5a9-1ecaa36d5569', 'bdcae590-efe2-4bdb-a8f8-e2440af89cb4', 'bdef5bda-e4cc-41d5-96b8-081602699c46', 1535711038165, 1535711038165);
+INSERT INTO "public"."PassportRole" VALUES ('4c4f40d5-6991-4a3e-bba3-a4f3ed16352e', 'bdcae590-efe2-4bdb-a8f8-e2440af89cb4', '74397524-e62d-49ed-bf5a-fc192013a091', 1535711082809, 1535711082809);
 COMMIT;
 
 -- ----------------------------
@@ -114,7 +136,11 @@ ALTER TABLE "public"."Permission" OWNER TO "w";
 -- Records of Permission
 -- ----------------------------
 BEGIN;
-INSERT INTO "public"."Permission" VALUES ('b03ba814-a868-486d-a085-459dc5754614', '管理系统', 'MS100', '管理整个系统', 'f', 1534152358351, 1534152358355);
+INSERT INTO "public"."Permission" VALUES ('77f9aaee-4177-4479-a8b2-b96fde972b9f', '登录权限', 'L100', '登录内部管理系统', 'f', 1535709828204, 1535709828207);
+INSERT INTO "public"."Permission" VALUES ('62e9b889-3df1-4819-a009-3ff9905fe16f', '登录权限', 'L101', '登录外部管理系统', 'f', 1535709853287, 1535709853287);
+INSERT INTO "public"."Permission" VALUES ('b5d18487-71a7-44a6-9e4c-244793f08321', '登录权限', 'L102', '登录坐席', 'f', 1535709870837, 1535709870838);
+INSERT INTO "public"."Permission" VALUES ('9b56ca5d-36ae-4e4e-bc1a-20fad427327c', '账号管理', 'AM100', '管理运营管理员账号', 'f', 1535709929368, 1535709929368);
+INSERT INTO "public"."Permission" VALUES ('5c7152ff-28ff-442e-bc71-e68239510c01', '账号管理', 'AM101', '管理系统管理员账号', 'f', 1535709954036, 1535709954036);
 COMMIT;
 
 -- ----------------------------
@@ -138,9 +164,29 @@ ALTER TABLE "public"."Role" OWNER TO "w";
 -- Records of Role
 -- ----------------------------
 BEGIN;
-INSERT INTO "public"."Role" VALUES ('28e023de-9475-464a-abd2-25f105e3b03c', '销售', 'f', 'f', NULL, NULL, 1534146605335, 1534146605338);
-INSERT INTO "public"."Role" VALUES ('278cb5bc-da96-4b7d-ab96-5d4c53b146e5', '管理员', 'f', 'f', NULL, NULL, 1534146696557, 1534146696561);
-INSERT INTO "public"."Role" VALUES ('f4644aeb-b854-4486-b392-84477a3172d4', '超级管理员', 'f', 'f', NULL, NULL, 1534152358351, 1534152358354);
+INSERT INTO "public"."Role" VALUES ('bdef5bda-e4cc-41d5-96b8-081602699c46', '系统管理员', 't', 't', '7aceafaf-912c-4866-a4eb-0bc15cc90594', NULL, 1535702741238, 1535711038175);
+INSERT INTO "public"."Role" VALUES ('74397524-e62d-49ed-bf5a-fc192013a091', '超级管理员', 'f', 't', NULL, NULL, 1535711074649, 1535711082826);
+COMMIT;
+
+-- ----------------------------
+-- Table structure for RolePermission
+-- ----------------------------
+DROP TABLE IF EXISTS "public"."RolePermission";
+CREATE TABLE "public"."RolePermission" (
+  "id" uuid NOT NULL,
+  "role_id" uuid NOT NULL,
+  "permission_id" uuid NOT NULL,
+  "createdAt" int8,
+  "updatedAt" int8
+)
+;
+ALTER TABLE "public"."RolePermission" OWNER TO "w";
+
+-- ----------------------------
+-- Records of RolePermission
+-- ----------------------------
+BEGIN;
+INSERT INTO "public"."RolePermission" VALUES ('4e39c7a6-c46a-4816-aa67-dd18b957cefc', 'bdef5bda-e4cc-41d5-96b8-081602699c46', '5c7152ff-28ff-442e-bc71-e68239510c01', 1535710849128, 1535710849128);
 COMMIT;
 
 -- ----------------------------
@@ -152,6 +198,11 @@ ALTER TABLE "public"."Client" ADD CONSTRAINT "Client_pkey" PRIMARY KEY ("id");
 -- Primary Key structure for table Passport
 -- ----------------------------
 ALTER TABLE "public"."Passport" ADD CONSTRAINT "Passports_pkey" PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Primary Key structure for table PassportRole
+-- ----------------------------
+ALTER TABLE "public"."PassportRole" ADD CONSTRAINT "PassportRole_pkey" PRIMARY KEY ("user_id", "role_id");
 
 -- ----------------------------
 -- Primary Key structure for table Permission
@@ -167,3 +218,20 @@ ALTER TABLE "public"."Role" ADD CONSTRAINT "Role_name_key" UNIQUE ("name");
 -- Primary Key structure for table Role
 -- ----------------------------
 ALTER TABLE "public"."Role" ADD CONSTRAINT "Role_pkey" PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Primary Key structure for table RolePermission
+-- ----------------------------
+ALTER TABLE "public"."RolePermission" ADD CONSTRAINT "RolePermission_pkey" PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Foreign Keys structure for table PassportRole
+-- ----------------------------
+ALTER TABLE "public"."PassportRole" ADD CONSTRAINT "PassportRole_passportId_fkey" FOREIGN KEY ("user_id") REFERENCES "public"."Passport" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE;
+ALTER TABLE "public"."PassportRole" ADD CONSTRAINT "PassportRole_roleId_fkey" FOREIGN KEY ("role_id") REFERENCES "public"."Role" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE;
+
+-- ----------------------------
+-- Foreign Keys structure for table RolePermission
+-- ----------------------------
+ALTER TABLE "public"."RolePermission" ADD CONSTRAINT "permissionidddd" FOREIGN KEY ("permission_id") REFERENCES "public"."Permission" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "public"."RolePermission" ADD CONSTRAINT "roleIddttt" FOREIGN KEY ("role_id") REFERENCES "public"."Role" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
