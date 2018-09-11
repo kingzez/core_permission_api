@@ -54,7 +54,7 @@ const attributes: SequelizeAttributes<PermissionAttributes> = {
     }
 }
 
-const Permission = db.define<PermissionInstance, PermissionAttributes>('Permissions', attributes, { tableName: 'Permission' })
+const Permission = db.define<PermissionInstance, PermissionAttributes>('Permissions', attributes, { tableName: 'permission' })
 
 Permission.sync({
     force: false
@@ -105,13 +105,13 @@ export async function findByDesc(desc: string) {
     return result
 }
 
-export async function insertPermission(doc: any) {
+export async function insertPermission(doc: PermissionAttributes) {
     let result = await Permission.create(doc)
 
     return result
 }
 
-export async function updatePermissions(id: string, doc: any) {
+export async function updatePermissions(id: string, doc: PermissionAttributes) {
     let result = await Permission.update(
         doc,
         {

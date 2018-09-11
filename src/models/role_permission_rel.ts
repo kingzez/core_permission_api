@@ -5,7 +5,6 @@ import Permission from './permission'
 import Role from './role'
 
 interface RolePermissionAttributes {
-    id?: string,
     roleId: string,
     permissionId: string,
     createdAt?: number,
@@ -15,29 +14,24 @@ interface RolePermissionAttributes {
 type RolePermissionInstance = Sequelize.Instance<RolePermissionAttributes> & RolePermissionAttributes
 
 const attributes: SequelizeAttributes<RolePermissionAttributes> = {
-    id: {
-        type: Sequelize.UUID,
-        primaryKey: true,
-        defaultValue: function() {
-            return v4()
-        }
-    },
     roleId: {
         type: Sequelize.UUID,
-        field: 'role_id',
+        field: 'roleId',
+        primaryKey: true,
         references: {
-            model: 'Role',
+            model: Role,
             key: 'id',
-            deferrable: Sequelize.Deferrable.INITIALLY_IMMEDIATE
+            deferrable: Sequelize.Deferrable.INITIALLY_IMMEDIATE,
         },
     },
     permissionId: {
         type: Sequelize.UUID,
-        field: 'permission_id',
+        field: 'permissionId',
+        primaryKey: true,
         references: {
-            model: 'Permission',
+            model: Permission,
             key: 'id',
-            deferrable: Sequelize.Deferrable.INITIALLY_IMMEDIATE
+            deferrable: Sequelize.Deferrable.INITIALLY_IMMEDIATE,
         },
     },
     createdAt: {
@@ -54,7 +48,10 @@ const attributes: SequelizeAttributes<RolePermissionAttributes> = {
     }
 }
 
-const RolePermission = db.define<RolePermissionInstance, RolePermissionAttributes>('RolePermissions', attributes, { tableName: 'RolePermission' })
+const RolePermission = db.define<RolePermissionInstance, RolePermissionAttributes>('RolePermissions',
+    attributes, {
+        tableName: 'role_permission_rel'
+    })
 
 Role.belongsToMany(Permission, { 'through': RolePermission, foreignKey: 'roleId' })
 Permission.belongsToMany(Role, { 'through': RolePermission, foreignKey: 'permissionId' })
@@ -76,7 +73,7 @@ export async function findRolePermission(roleId: string, permissionId: string) {
     return result
 }
 
-export async function insertRolePermission(doc: any) {
+export async function insertRolePermission(doc: RolePermissionAttributes) {
     let result = await RolePermission.create(doc)
 
     return result

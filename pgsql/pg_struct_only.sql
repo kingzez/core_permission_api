@@ -43,7 +43,7 @@ CREATE TABLE "public"."Passport" (
   "email" varchar(255) COLLATE "pg_catalog"."default" NOT NULL,
   "createdAt" int8,
   "updatedAt" int8,
-  "isDelete" bool NOT NULL
+  "isDeleted" bool NOT NULL
 )
 ;
 ALTER TABLE "public"."Passport" OWNER TO "w";

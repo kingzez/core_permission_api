@@ -1,11 +1,9 @@
 import Sequelize from 'sequelize'
 import db from '../lib/db'
-import v4 from 'uuid'
 import Role from './role'
 import Passport from './passport'
 
 interface PassportRoleAttributes {
-    id?: string,
     passportId: string,
     roleId: string,
     createdAt?: number,
@@ -15,29 +13,22 @@ interface PassportRoleAttributes {
 type PassportRoleInstance = Sequelize.Instance<PassportRoleAttributes> & PassportRoleAttributes
 
 const attributes: SequelizeAttributes<PassportRoleAttributes> = {
-    id: {
-        type: Sequelize.UUID,
-        primaryKey: true,
-        defaultValue: function() {
-            return v4()
-        }
-    },
     passportId: {
         type: Sequelize.UUID,
-        field: 'user_id',
+        field: 'passportId',
         primaryKey: true,
         references: {
-            model: 'Passport',
+            model: Passport,
             key: 'id',
             deferrable: Sequelize.Deferrable.INITIALLY_IMMEDIATE
         },
     },
     roleId: {
         type: Sequelize.UUID,
-        field: 'role_id',
+        field: 'roleId',
         primaryKey: true,
         references: {
-            model: 'Role',
+            model: Role,
             key: 'id',
             deferrable: Sequelize.Deferrable.INITIALLY_IMMEDIATE
         },
@@ -56,7 +47,10 @@ const attributes: SequelizeAttributes<PassportRoleAttributes> = {
     }
 }
 
-const PassportRole = db.define<PassportRoleInstance, PassportRoleAttributes>('PassportRoles', attributes, { tableName: 'PassportRole' })
+const PassportRole = db.define<PassportRoleInstance, PassportRoleAttributes>('PassportRoles',
+    attributes, {
+        tableName: 'passport_role_rel'
+    })
 
 
 Role.belongsToMany(Passport, { 'through': PassportRole, foreignKey: 'roleId' })
@@ -79,7 +73,7 @@ export async function findPassportRole(passportId: string, roleId: string) {
     return result
 }
 
-export async function insertPassportRole(doc: any) {
+export async function insertPassportRole(doc: PassportRoleAttributes) {
     let result = await PassportRole.create(doc)
 
     return result

@@ -2,7 +2,7 @@ import { Request, Response, RequestHandler } from 'express'
 import { default as axios, AxiosResponse, AxiosError } from 'axios'
 
 import { findPassports, updatePassports, deletePassportById } from '../models/passport'
-import { insertPassportRole, findPassportRole, deletePassportRoles } from '../models/passportRole'
+import { insertPassportRole, findPassportRole, deletePassportRoles } from '../models/passport_role_rel'
 import { updateRoleIsUsed } from '../models/role'
 import logger from '../util/logger'
 import { OAUTH2_SERVER_HOST } from '../config'
@@ -88,7 +88,7 @@ export const deletePassport: RequestHandler = async (req: Request, res: Response
         return res.send({ status: 'not ok', msg: err })
     }
 
-    //将用户表中的isDelete设置为ture
+    //将用户表中的isDeleted设置为ture
     var [err, result] = await go(deletePassportById(doc.id))
     if (err) {
         logger.error('deletePassport Error: ', err)

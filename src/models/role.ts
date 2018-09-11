@@ -3,17 +3,19 @@ import v4 from 'uuid'
 
 import db from '../lib/db'
 import logger from '../util/logger'
-import Permission from './permission';
+import Permission from './permission'
+import Client, { ClientAttributes } from './client'
 
 interface RoleAttributes {
     id?: string,
     name: string,
+    clientId: string,
     status?: boolean,
     isUsed?: boolean,
-    parent?: string,
     children?: string,
     createdAt?: number,
     updatedAt?: number,
+    client?: ClientAttributes
 }
 
 type RoleInstance = Sequelize.Instance<RoleAttributes> & RoleAttributes
@@ -29,7 +31,6 @@ const attributes: SequelizeAttributes<RoleAttributes> = {
     name: {
         type: Sequelize.STRING,
         allowNull: false,
-        unique: true,
     },
     status: {
         type: Sequelize.BOOLEAN,
@@ -41,11 +42,17 @@ const attributes: SequelizeAttributes<RoleAttributes> = {
         allowNull: false,
         defaultValue: false,
     },
-    parent: {
-        type: Sequelize.STRING,
-    },
     children: {
         type: Sequelize.STRING,
+    },
+    clientId: {
+        type: Sequelize.UUID,
+        allowNull: false,
+        references: {
+            model: Client,
+            key: 'id',
+            deferrable: Sequelize.Deferrable.INITIALLY_DEFERRED,
+        }
     },
     createdAt: {
         type: Sequelize.BIGINT,
@@ -61,7 +68,9 @@ const attributes: SequelizeAttributes<RoleAttributes> = {
     }
 }
 
-const Role = db.define<RoleInstance, RoleAttributes>('Roles', attributes, { tableName: 'Role' })
+const Role = db.define<RoleInstance, RoleAttributes>('Roles', attributes, { tableName: 'role' })
+
+Client.hasMany(Role, { foreignKey: 'clientId', sourceKey: 'id' }); // 将会添加 clientId 到 Role
 
 Role.sync({
     force: false
@@ -110,13 +119,13 @@ export async function findRolePermissions(page: number, size: number) {
 
     return result
 }
-export async function insertRole(doc: any) {
+export async function insertRole(doc: RoleAttributes) {
     let result = await Role.create(doc)
 
     return result
 }
 
-export async function updateRoles(id: string, doc: any) {
+export async function updateRoles(id: string, doc: RoleAttributes) {
     let result = await Role.update(
         doc,
         {
@@ -133,6 +142,17 @@ export async function findByName(name: string) {
     let result = await Role.findOne({
         where: {
             name
+        }
+    })
+
+    return result
+}
+
+export async function findByNameAndClientId(name: string, clientId: string) {
+    let result = await Role.findOne({
+        where: {
+            name,
+            clientId
         }
     })
 

@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node dist/src/server.js",
     "dev": "DEBUG=oauth2orize npm run watch-node",
+    "dev:local": "OAUTH2_SERVER_HOST=http://localhost:8998 DEBUG=oauth2orize npm run watch-node",
     "build": "tsc && npm run copy-static-assets",
     "watch-node": "nodemon dist/src/server.js",
     "watch-ts": "tsc -w",

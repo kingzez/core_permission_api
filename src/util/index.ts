@@ -1,6 +1,6 @@
 import _ from 'lodash'
 
-export const getUid = function(length: number) {
+export const getUid = function(length: number): string {
     let uid = ''
     const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
     const charsLength = chars.length
@@ -13,7 +13,7 @@ export const getUid = function(length: number) {
   }
 
 
-function getRandomInt(min: number, max: number) {
+function getRandomInt(min: number, max: number): number {
     return Math.floor(Math.random() * (max - min + 1)) + min
 }
 

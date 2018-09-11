@@ -48,6 +48,7 @@ function exit() {
     let role = await Role.create({
         id: uuidv4(),
         name: '超级管理员',
+        clientId: uuidv4(),
         createdAt: now,
         updatedAt: now,
     }).catch((err) => logger.debug(err))

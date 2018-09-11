@@ -1,7 +1,7 @@
 import { Request, Response, RequestHandler } from 'express'
 
 import { findByCode, findByDesc, insertPermission, updatePermissions, findByPermissionId, findPermissions, deletePermissionById } from '../models/permission'
-import { deleteRolePermissionByPermissionId } from '../models/rolePermission'
+import { deleteRolePermissionByPermissionId } from '../models/role_permission_rel'
 import logger from '../util/logger'
 import { pickAndCheck, go } from '../util'
 

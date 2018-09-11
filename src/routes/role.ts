@@ -1,10 +1,22 @@
 import { Request, Response, RequestHandler } from 'express'
 
-import { findRoles, findRolePermissions, insertRole, updateRoles, findByName, deleteRoleById } from '../models/role'
-import { findRolePermission, insertRolePermission, deleteRolePermission } from '../models/rolePermission'
+import {
+    findRoles,
+    findRolePermissions,
+    insertRole,
+    updateRoles,
+    findByNameAndClientId,
+    deleteRoleById
+} from '../models/role'
+import {
+    findRolePermission,
+    insertRolePermission,
+    deleteRolePermission
+} from '../models/role_permission_rel'
 import logger from '../util/logger'
 import { pickAndCheck, go } from '../util'
-import { deletePassportRole } from '../models/passportRole';
+import { deletePassportRole } from '../models/passport_role_rel'
+import { findByClientId } from '../models/client'
 
 /**
  * GET /api/role
@@ -18,10 +30,28 @@ export const getRoles: RequestHandler = async (req: Request, res: Response) => {
     const page = parseInt(req.query.page)
     const size = parseInt(req.query.size)
 
-    let [err, result] = await go(findRoles(page, size))
+    let [err, roles] = await go(findRoles(page, size))
     if (err) {
         logger.error('findRoles Error: ', err)
         return res.send({ status: 'not ok', msg: err })
+    }
+    interface resultAttr {
+        rows: any[] | undefined,
+        count: number
+    }
+
+    let result:resultAttr = {
+        rows: [],
+        count: 0
+    }
+    result.count = roles.count
+
+    for (const role of roles.rows) {
+        let item = role.get({ plain: true })
+        let client = await findByClientId(item.clientId)
+
+        item.client = client.get({ plain: true })
+        result.rows.push(item)
     }
 
     res.send({ status: 'ok', msg: 'success', result: result })
@@ -55,12 +85,12 @@ export const getRolePermissions: RequestHandler = async (req: Request, res: Resp
  * @param res
  */
 export const createRole: RequestHandler = async (req: Request, res: Response) => {
-    let doc = pickAndCheck(req.body, { required: ['name'], options: ['status', 'isUsed', 'parent', 'children'] })
+    let doc = pickAndCheck(req.body, { required: ['name', 'clientId'], options: ['status', 'isUsed', 'children'] })
     if (!doc) return res.send({ status: 400, msg: 'required request body is missing' })
 
-    var [err, uname] = await go(findByName(doc.name))
+    var [err, uname] = await go(findByNameAndClientId(doc.name, doc.clientId))
     if (err) {
-        logger.error('createRole findByName Error: ', err)
+        logger.error('createRole findByNameAndClientId Error: ', err)
         return res.send({ status: 'not ok', msg: err })
     }
     if (uname !== null) {

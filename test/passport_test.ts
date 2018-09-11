@@ -7,7 +7,7 @@ import logger from '../src/util/logger'
 const passport = {
     id: 'c3b23e00-9d36-4a5e-9ca6-17e50c0e0d35',
     username: 'test',
-    isDelete: false,
+    isDeleted: false,
     password: 'test',
     email: 'test@xiaoyun.com',
 }

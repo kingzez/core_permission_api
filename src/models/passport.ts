@@ -9,7 +9,7 @@ export interface PassportAttributes {
     username: string,
     password: string,
     email: string,
-    isDelete?: boolean,
+    isDeleted?: boolean,
     createdAt?: number,
     updatedAt?: number,
 }
@@ -46,7 +46,7 @@ const attributes: SequelizeAttributes<PassportAttributes> = {
         allowNull: false,
         unique: true,
     },
-    isDelete: {
+    isDeleted: {
         type: Sequelize.BOOLEAN,
         allowNull: false,
         defaultValue: function() {
@@ -67,7 +67,7 @@ const attributes: SequelizeAttributes<PassportAttributes> = {
     }
 }
 
-const Passport = db.define<PassportInstance, PassportAttributes>('Passports', attributes, { tableName: 'Passport' })
+const Passport = db.define<PassportInstance, PassportAttributes>('Passports', attributes, { tableName: 'passport' })
 
 Passport.sync({
     force: false
@@ -87,13 +87,13 @@ export async function findPassports(page: number, size: number) {
 
     let offset = page * size
     let count = await Passport.count({
-        where: { isDelete: false }
+        where: { isDeleted: false }
     })
 
     let result = await Passport.findAndCountAll({
         offset: offset,
         limit: size,
-        where: { isDelete: false },
+        where: { isDeleted: false },
         order: [
             ['createdAt', 'DESC']
         ],
@@ -141,7 +141,7 @@ export async function findPassportByEmail(email: string) {
 
 export async function deletePassportById(id: string) {
     let result = await Passport.update({
-        isDelete: true
+        isDeleted: true
     }, {
         where: {
             id

@@ -9,6 +9,7 @@ import { SERVER_PORT }  from './config'
 import { getPassports, createPassport, updatePassport, deletePassport, setRole } from './routes/passport'
 import { getRoles, getRolePermissions, createRole, updateRole, setPermission, deleteRole } from './routes/role'
 import { createPermission, updatePermission, getPermissions, deletePermission } from './routes/permission'
+import { getClients, createClient } from './routes/client'
 
 const app: Application = express()
 
@@ -71,6 +72,8 @@ app.post('/api/permission', createPermission)
 app.put('/api/permission', updatePermission)
 app.delete('/api/permission', deletePermission)
 
+app.get('/api/client', getClients)
+app.post('/api/client', createClient)
 
 
 export default app
