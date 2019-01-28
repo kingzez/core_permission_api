@@ -20,4 +20,9 @@ export const SERVER_PORT: number = 8999
 
 export const SESSION_HOST: string = process.env.SESSION_HOST || 'http://10.11.3.137:11104'
 
-export const OAUTH2_SERVER_HOST: string = process.env.OAUTH2_SERVER_HOST || 'http://10.11.3.123:8998'
+export const OAUTH2_SERVER_HOST: string = process.env.OAUTH2_SERVER_HOST || 'http://localhost:8998'
+
+export const OAUTH2_CONFIG = {
+    clientId: 'core_permission',
+    clientSecret: 'core_permission',
+}

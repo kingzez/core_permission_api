@@ -1,7 +1,7 @@
 import errorHandler from "errorhandler"
 
-import app from "./app"
-
+import app from './app'
+import { OAUTH2_SERVER_HOST } from './config'
 /**
  * Error Handler. Provides full stack - remove for production
  */
@@ -16,9 +16,10 @@ const server = app.listen(app.get("port"), () => {
         app.get("port"),
         app.get("env"),
     )
-    console.log('  OAUTH2_SERVER_HOST: ', process.env.OAUTH2_SERVER_HOST)
+    console.log('  OAUTH2_SERVER_HOST: ', OAUTH2_SERVER_HOST)
 
     console.log("\n  Press CTRL-C to stop\n")
 })
 
 export default server
+
