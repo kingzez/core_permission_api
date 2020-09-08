@@ -20,7 +20,7 @@ function exit() {
         id: uuidv4(),
         username: 'admin',
         password: 'admin',
-        email: 'admin@xiaoyun.com',
+        email: 'admin@gmail.com',
         createdAt: now,
         updatedAt: now,
     }).catch((err) => logger.debug(err))

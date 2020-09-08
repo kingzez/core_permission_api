@@ -62,10 +62,10 @@ ALTER TABLE "public"."passport" OWNER TO "w";
 -- Records of passport
 -- ----------------------------
 BEGIN;
-INSERT INTO "public"."passport" VALUES ('67ed0f32-ea92-417a-b88b-6f345f37315e', 'xiaoyun', '7f3dd1cc886da87a6ded1389701a140c', 'a@xiaoyun.com', 'f', 1536553508926, 1536553508927);
-INSERT INTO "public"."passport" VALUES ('c3b23e00-9d36-4a5e-9ca6-17e50c0e0d35', 'test', 'aa735574c10cdae10613435a1c6bcd2d', 'test@xiaoyun.com', 'f', 1536564568564, 1536564568567);
-INSERT INTO "public"."passport" VALUES ('251dd3ca-fe25-4500-a302-fead898cd034', 'admin', 'c62402fe51ff1741fc14c311fc1fcc5d', 'admin@xiaoyun.com', 'f', 1538978573662, 1538978573664);
-INSERT INTO "public"."passport" VALUES ('117c5442-592b-423d-8a0c-50af4b701d08', 'wangzezhi', '15dab537d36aaeed42454cc4c182f187', 'wangzezhi@xiaoyun.com', 'f', 1539166415297, 1539166415300);
+INSERT INTO "public"."passport" VALUES ('67ed0f32-ea92-417a-b88b-6f345f37315e', 'xiaoyun', '7f3dd1cc886da87a6ded1389701a140c', 'a@gmail.com', 'f', 1536553508926, 1536553508927);
+INSERT INTO "public"."passport" VALUES ('c3b23e00-9d36-4a5e-9ca6-17e50c0e0d35', 'test', 'aa735574c10cdae10613435a1c6bcd2d', 'test@gmail.com', 'f', 1536564568564, 1536564568567);
+INSERT INTO "public"."passport" VALUES ('251dd3ca-fe25-4500-a302-fead898cd034', 'admin', 'c62402fe51ff1741fc14c311fc1fcc5d', 'admin@gmail.com', 'f', 1538978573662, 1538978573664);
+INSERT INTO "public"."passport" VALUES ('117c5442-592b-423d-8a0c-50af4b701d08', 'wangzezhi', '15dab537d36aaeed42454cc4c182f187', 'wangzezhi@gmail.com', 'f', 1539166415297, 1539166415300);
 INSERT INTO "public"."passport" VALUES ('bc107291-134b-4ff4-87d4-7ac1d94a38de', '1', 'b82e0d66f43d9aa37b13d0f453864bde', '1ds@gmail.com', 'f', 1539169024961, 1539169024966);
 COMMIT;
 

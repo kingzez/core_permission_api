@@ -19,9 +19,9 @@ POST http://localhost:8999/api/client HTTP/1.1
 Content-type: application/json; charset=utf-8
 
 {
-    "name": "rmk1",
-    "clientId": "xiaoyun_id",
-	"clientSecret": "xiaoyun_id",
+	"name": "rmk1",
+	"clientId": "client_id",
+	"clientSecret": "client_id",
 	"isTrusted": "true"
 }
 
@@ -39,9 +39,9 @@ POST http://localhost:8999/api/passport HTTP/1.1
 Content-type: application/json; charset=utf-8
 
 {
-    "username": "xiaoyun",
+    "username": "client",
     "password": "111111",
-	"email": "a@xiaoyun.com"
+	"email": "a@gmail.com"
 }
 
 
@@ -84,7 +84,3 @@ Content-type: application/json; charset=utf-8
 ### getPermissions
 
 GET http://localhost:8999/api/permission HTTP/1.1
-
-
-
-

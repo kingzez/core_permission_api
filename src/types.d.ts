@@ -5,3 +5,9 @@ declare global {
     [P in keyof T]: string | DataTypeAbstract | DefineAttributeColumnOptions
   }
 }
+
+// declare module 'koa' {
+//     interface Request {
+//         files?: any;
+//     }
+// }

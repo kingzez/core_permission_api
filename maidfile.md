@@ -19,7 +19,7 @@ tsc -w
 Build docker image
 
 ```bash
-docker build -t reg.yunpro.cn/bjwjh/core_permission_api:latest .
+docker build -t wangzezhi/core_permission_api:latest .
 ```
 
 ## image:push
@@ -27,5 +27,5 @@ docker build -t reg.yunpro.cn/bjwjh/core_permission_api:latest .
 Push docker image
 
 ```bash
-docker push reg.yunpro.cn/bjwjh/core_permission_api:latest
+docker push wangzezhi/core_permission_api:latest
 ```

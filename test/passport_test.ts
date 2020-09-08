@@ -9,7 +9,7 @@ const passport = {
     username: 'test',
     isDeleted: false,
     password: 'test',
-    email: 'test@xiaoyun.com',
+    email: 'test@gmail.com',
 }
 
 

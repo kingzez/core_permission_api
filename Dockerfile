@@ -1,5 +1,5 @@
 ### Health check 'curl /ping'
-FROM reg.yunpro.cn/bjwjh/node:10.0.0
+FROM node:10.0.0
 
 WORKDIR /app
 
