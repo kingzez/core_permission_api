@@ -20,7 +20,7 @@
   "author": "wangzezhi",
   "license": "ISC",
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "connect-history-api-fallback": "^1.5.0",
     "cookie-parser": "^1.4.3",
     "cors": "^2.8.4",
